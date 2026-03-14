@@ -74,35 +74,4 @@ export default function BookingForm({
       )}
     </>
   );
-          <label className="block text-sm font-medium text-gray-700 mb-1">Passengers</label>
-          <input
-            type="number"
-            min={1}
-            max={50}
-            {...register('passenger_count', { valueAsNumber: true })}
-            className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:ring-2 focus:ring-ocean"
-          />
-          {errors.passenger_count && (
-            <p className="text-red-500 text-sm mt-1">{errors.passenger_count.message}</p>
-          )}
-        </div>
-        <p className="text-sm text-gray-500">
-          KES {pricePerPerson.toLocaleString()} × passengers + 15% platform fee
-        </p>
-        <button type="submit" disabled={isSubmitting} className="btn-primary w-full">
-          {isSubmitting ? 'Booking…' : 'Book & Pay with M-Pesa'}
-        </button>
-      </form>
-
-      {showPayment && bookingId && (
-        <PaymentModal
-          bookingId={bookingId}
-          onClose={() => {
-            setShowPayment(false);
-            onBooked?.();
-          }}
-        />
-      )}
-    </>
-  );
-}
+// Duplicate JSX removed
