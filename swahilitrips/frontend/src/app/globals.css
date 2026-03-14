@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ocean: #0077B6;
+  --sand: #F4E0B0;
+  --palm: #2D6A4F;
+  --coral: #E07A5F;
+}
+
+body {
+  @apply bg-sand/30 text-gray-900 antialiased;
+}
+
+@layer components {
+  .glass-card {
+    @apply rounded-2xl bg-white/70 backdrop-blur-md border border-white/50 shadow-xl;
+  }
+  .btn-primary {
+    @apply px-6 py-3 rounded-xl font-semibold bg-ocean text-white hover:bg-ocean/90 transition-all shadow-lg hover:shadow-ocean/30 hover:shadow-xl;
+  }
+  .btn-secondary {
+    @apply px-6 py-3 rounded-xl font-semibold bg-palm text-white hover:bg-palm/90 transition-all;
+  }
+  .btn-coral {
+    @apply px-6 py-3 rounded-xl font-semibold bg-coral text-white hover:bg-coral/90 transition-all;
+  }
+}
