@@ -33,11 +33,19 @@ export const api = {
     });
     return handleResponse<T>(res);
   },
-  async post<T>(path: string, body?: object, auth = true): Promise<T> {
+  async post<T>(path: string, body?: object | FormData, auth = true, customHeaders?: HeadersInit): Promise<T> {
+    let headers: HeadersInit = getHeaders(auth);
+    let fetchBody: any = undefined;
+    if (body instanceof FormData) {
+      headers = customHeaders || {};
+      fetchBody = body;
+    } else {
+      fetchBody = body ? JSON.stringify(body) : undefined;
+    }
     const res = await fetch(`${API_URL}${path}`, {
       method: 'POST',
-      headers: getHeaders(auth),
-      body: body ? JSON.stringify(body) : undefined,
+      headers,
+      body: fetchBody,
       credentials: 'omit',
     });
     return handleResponse<T>(res);

@@ -81,11 +81,19 @@ const api = {
         });
         return handleResponse(res);
     },
-    async post (path, body, auth = true) {
+    async post (path, body, auth = true, customHeaders) {
+        let headers = getHeaders(auth);
+        let fetchBody = undefined;
+        if (body instanceof FormData) {
+            headers = customHeaders || {};
+            fetchBody = body;
+        } else {
+            fetchBody = body ? JSON.stringify(body) : undefined;
+        }
         const res = await fetch(`${API_URL}${path}`, {
             method: 'POST',
-            headers: getHeaders(auth),
-            body: body ? JSON.stringify(body) : undefined,
+            headers,
+            body: fetchBody,
             credentials: 'omit'
         });
         return handleResponse(res);
