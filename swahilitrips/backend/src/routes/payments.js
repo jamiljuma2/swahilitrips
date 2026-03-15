@@ -1,4 +1,11 @@
+const express = require('express');
+const router = express.Router();
+const axios = require('axios');
+const { body, validationResult } = require('express-validator');
+const { pool } = require('../db');
+const { verifyToken, requireRole } = require('../middleware/auth');
 const { createPaymentLink, initiateStkPush } = require('../payments');
+
 // Lipana: Create payment link
 router.post('/create-payment-link', async (req, res) => {
   try {
