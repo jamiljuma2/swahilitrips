@@ -1,3 +1,29 @@
+const { createPaymentLink, initiateStkPush } = require('../payments');
+// Lipana: Create payment link
+router.post('/create-payment-link', async (req, res) => {
+  try {
+    const { title = 'SwahiliTrips Payment', description = 'Booking payment', amount, currency = 'KES', allowCustomAmount = false, successRedirectUrl } = req.body;
+    if (!amount) return res.status(400).json({ error: 'Amount required' });
+    const paymentLink = await createPaymentLink({ title, description, amount, currency, allowCustomAmount, successRedirectUrl });
+    res.json(paymentLink);
+  } catch (err) {
+    console.error('Lipana create-payment-link error:', err.response?.data || err.message);
+    res.status(500).json({ error: err.response?.data?.message || 'Failed to create payment link' });
+  }
+});
+
+// Lipana: Initiate STK push
+router.post('/initiate-stk-push', async (req, res) => {
+  try {
+    const { phoneNumber, amount } = req.body;
+    if (!phoneNumber || !amount) return res.status(400).json({ error: 'phoneNumber and amount required' });
+    const result = await initiateStkPush(phoneNumber, amount);
+    res.json(result);
+  } catch (err) {
+    console.error('Lipana initiate-stk-push error:', err.response?.data || err.message);
+    res.status(500).json({ error: err.response?.data?.message || 'Failed to initiate STK push' });
+  }
+});
 const express = require('express');
 const axios = require('axios');
 const { body, validationResult } = require('express-validator');
