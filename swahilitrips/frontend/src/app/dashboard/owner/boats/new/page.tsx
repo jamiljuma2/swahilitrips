@@ -15,6 +15,7 @@ const schema = z.object({
   description: z.string().optional(),
   location: z.string().optional(),
   price_per_person: z.number().min(0).optional(),
+  photos: z.any().optional(),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -27,13 +28,23 @@ export default function NewBoatPage() {
     defaultValues: { capacity: 10, price_per_person: 0 },
   });
 
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+
   const onSubmit = async (data: FormData) => {
     setError('');
     try {
-      const boat = await api.post<{ id: string }>('/api/boats', {
-        ...data,
-        photos: [],
-        is_active: true,
+      const formData = new FormData();
+      formData.append('boat_name', data.boat_name);
+      formData.append('capacity', String(data.capacity));
+      if (data.description) formData.append('description', data.description);
+      if (data.location) formData.append('location', data.location);
+      if (data.price_per_person !== undefined) formData.append('price_per_person', String(data.price_per_person));
+      formData.append('is_active', 'true');
+      selectedFiles.forEach((file, idx) => {
+        formData.append('photos', file);
+      });
+      const boat = await api.post<{ id: string }>('/api/boats', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
       router.push(`/dashboard/owner/boats/${boat.id}`);
     } catch (e) {
@@ -70,6 +81,25 @@ export default function NewBoatPage() {
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Price per person (optional)</label>
             <input type="number" step="0.01" {...register('price_per_person', { valueAsNumber: true })} className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:ring-2 focus:ring-ocean transition" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Boat Images</label>
+            <input
+              type="file"
+              multiple
+              accept="image/*"
+              onChange={e => {
+                setSelectedFiles(Array.from(e.target.files || []));
+              }}
+              className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:ring-2 focus:ring-ocean transition"
+            />
+            {selectedFiles.length > 0 && (
+              <div className="mt-2 flex flex-wrap gap-2">
+                {selectedFiles.map((file, idx) => (
+                  <span key={idx} className="bg-gray-100 px-2 py-1 rounded text-xs">{file.name}</span>
+                ))}
+              </div>
+            )}
           </div>
           {error && <p className="text-red-500 text-sm">{error}</p>}
           <button type="submit" disabled={isSubmitting} className="btn-primary w-full">

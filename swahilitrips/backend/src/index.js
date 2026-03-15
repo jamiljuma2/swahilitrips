@@ -17,6 +17,7 @@ const trackingRoutes = require('./routes/tracking');
 const weatherRoutes = require('./routes/weather');
 
 const app = express();
+const path = require('path');
 const PORT = process.env.PORT || 5000;
 
 // CORS: allow frontend origin(s). Comma-separated in env or single value.
@@ -38,6 +39,8 @@ app.use(
   })
 );
 app.use(express.json());
+// Serve boat images
+app.use('/uploads/boats', express.static(path.join(__dirname, '../uploads/boats')));
 app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000,

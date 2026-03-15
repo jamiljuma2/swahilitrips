@@ -2,8 +2,22 @@ const express = require('express');
 const { body, validationResult, query } = require('express-validator');
 const { pool } = require('../db');
 const { verifyToken, requireRole } = require('../middleware/auth');
+const multer = require('multer');
+const path = require('path');
 
 const router = express.Router();
+
+// Configure multer storage
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, '../../uploads/boats'));
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    cb(null, uniqueSuffix + '-' + file.originalname);
+  }
+});
+const upload = multer({ storage });
 
 // Public: list all active boats
 router.get('/', async (req, res) => {
@@ -47,17 +61,19 @@ const boatValidation = [
   body('is_active').optional().isBoolean(),
 ];
 
-router.post('/', verifyToken, requireRole('boat_owner'), boatValidation, async (req, res) => {
+router.post('/', verifyToken, requireRole('boat_owner'), upload.array('photos', 10), boatValidation, async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
-    const { boat_name, capacity, description, photos, location, price_per_person, is_active } = req.body;
+    const { boat_name, capacity, description, location, price_per_person, is_active } = req.body;
+    // Save file paths
+    const photoPaths = req.files ? req.files.map(f => `/uploads/boats/${f.filename}`) : [];
     const result = await pool.query(
       `INSERT INTO boats (owner_id, boat_name, capacity, description, photos, location, price_per_person, is_active)
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
        RETURNING *`,
-      [req.user.id, boat_name, capacity, description || null, photos || [], location || null, price_per_person ?? null, is_active !== false]
+      [req.user.id, boat_name, capacity, description || null, photoPaths, location || null, price_per_person ?? null, is_active !== false]
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {
