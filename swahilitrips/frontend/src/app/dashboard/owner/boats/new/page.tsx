@@ -43,9 +43,7 @@ export default function NewBoatPage() {
       selectedFiles.forEach((file, idx) => {
         formData.append('photos', file);
       });
-      const boat = await api.post<{ id: string }>('/api/boats', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      const boat = await api.post<{ id: string }>('/api/boats', formData, true, {});
       router.push(`/dashboard/owner/boats/${boat.id}`);
     } catch (e) {
       setError((e as Error).message);
