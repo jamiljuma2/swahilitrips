@@ -1,0 +1,18 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/dashboard/layout,_N_T_/dashboard/owner/layout,_N_T_/dashboard/owner/boats/layout,_N_T_/dashboard/owner/boats/new/layout,_N_T_/dashboard/owner/boats/new/page,_N_T_/dashboard/owner/boats/new"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/dashboard/owner/boats/new/__PAGE__",
+    "/dashboard/owner/boats/new",
+    "/dashboard/owner/boats",
+    "/dashboard/owner",
+    "/dashboard",
+    "/_index",
+    "/_head"
+  ]
+}

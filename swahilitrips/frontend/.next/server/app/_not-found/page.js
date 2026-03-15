@@ -1,0 +1,13 @@
+var R=require("../../chunks/ssr/[turbopack]_runtime.js")("server/app/_not-found/page.js")
+R.c("server/chunks/ssr/swahilitrips_frontend_079ad5a6._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__fdb19e96._.js")
+R.c("server/chunks/ssr/232d3_next_dist_esm_build_templates_app-page_c45750e2.js")
+R.c("server/chunks/ssr/[root-of-the-server]__77eb3615._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__9ef83b19._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__b89ddda5._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__3f06db81._.js")
+R.c("server/chunks/ssr/232d3_next_dist_client_components_dcdb5e9e._.js")
+R.c("server/chunks/ssr/232d3_next_dist_client_components_builtin_forbidden_7ebc0f37.js")
+R.c("server/chunks/ssr/swahilitrips_frontend__next-internal_server_app__not-found_page_actions_e4ac44d9.js")
+R.m(67657)
+module.exports=R.m(67657).exports

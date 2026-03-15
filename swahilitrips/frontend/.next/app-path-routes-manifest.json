@@ -1,0 +1,14 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/auth/login/page": "/auth/login",
+  "/auth/register/page": "/auth/register",
+  "/dashboard/admin/page": "/dashboard/admin",
+  "/dashboard/owner/boats/[id]/page": "/dashboard/owner/boats/[id]",
+  "/dashboard/owner/boats/new/page": "/dashboard/owner/boats/new",
+  "/dashboard/owner/page": "/dashboard/owner",
+  "/dashboard/tourist/page": "/dashboard/tourist",
+  "/explore/page": "/explore",
+  "/page": "/",
+  "/trips/[id]/page": "/trips/[id]"
+}

@@ -1,0 +1,5 @@
+1:"$Sreact.fragment"
+2:I[70638,["/_next/static/chunks/10ca949c5c2dd1d9.js","/_next/static/chunks/2e085910b5fafbc3.js","/_next/static/chunks/26f94cb1e2442ef9.js"],"ViewportBoundary"]
+3:I[70638,["/_next/static/chunks/10ca949c5c2dd1d9.js","/_next/static/chunks/2e085910b5fafbc3.js","/_next/static/chunks/26f94cb1e2442ef9.js"],"MetadataBoundary"]
+4:"$Sreact.suspense"
+0:{"buildId":"q8B7gttM7o72mT_DONZxA","rsc":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L2",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L3",null,{"children":["$","$4",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"SwahiliTrips — Lamu & Manda Islands"}],["$","meta","1",{"name":"description","content":"Discover and book boat rides, island tours, fishing trips, dhow cruises & more."}]]}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"loading":null,"isPartial":false}

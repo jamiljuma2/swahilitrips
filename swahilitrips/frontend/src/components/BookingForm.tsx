@@ -26,6 +26,42 @@ export default function BookingForm({
   const [bookingId, setBookingId] = useState<string | null>(null);
   const [showPayment, setShowPayment] = useState(false);
 
+  // Setup react-hook-form
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+  });
+
+  // Minimum date for booking (today)
+  const minDate = new Date().toISOString().split('T')[0];
+
+  // Submit handler
+  const onSubmit = async (data: FormData) => {
+    try {
+      // Calculate total price
+      const total = data.passenger_count * pricePerPerson * 1.15;
+      // Call API to create booking
+      const response = await api.post('/bookings', {
+        tripId,
+        booking_date: data.booking_date,
+        passenger_count: data.passenger_count,
+        total,
+      });
+      // Type assertion for response
+      const bookingResponse = response as { data: { bookingId: string } };
+      setBookingId(bookingResponse.data.bookingId);
+      setShowPayment(true);
+      reset();
+    } catch (error) {
+      // Handle error (show toast, etc.)
+      // Optionally add error handling here
+    }
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className="glass-card p-8 space-y-6 shadow-md rounded-xl bg-white/80">
@@ -74,4 +110,5 @@ export default function BookingForm({
       )}
     </>
   );
+}
 // Duplicate JSX removed
