@@ -2,6 +2,9 @@
 .env
 .env.*
 *.env
+# .env
+# .env.*
+# *.env
 # Ignore database schema backups
 *.sql
 # Ignore node_modules
