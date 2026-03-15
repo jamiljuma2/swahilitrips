@@ -31,13 +31,6 @@ router.post('/initiate-stk-push', async (req, res) => {
     res.status(500).json({ error: err.response?.data?.message || 'Failed to initiate STK push' });
   }
 });
-const express = require('express');
-const axios = require('axios');
-const { body, validationResult } = require('express-validator');
-const { pool } = require('../db');
-const { verifyToken, requireRole } = require('../middleware/auth');
-
-const router = express.Router();
 
 const MPESA_OAUTH_URL = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
 const MPESA_STK_URL = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
